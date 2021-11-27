@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -42,8 +43,8 @@ func main() {
 		}
 
 		// move directories
-		oldLoc := dir + "\\" + fileName
-		newLoc := dir + "\\" + name + "\\" + fileName[:strings.Index(fileName, "(")] + ".java"
+		oldLoc := filepath.Join(dir, fileName)
+		newLoc := filepath.Join(dir, name, fileName[:strings.Index(fileName, "(")]+".java")
 
 		fmt.Printf("%d| %s | %s\n", i, oldLoc, newLoc)
 
