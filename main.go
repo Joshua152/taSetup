@@ -46,7 +46,7 @@ func main() {
 		oldLoc := filepath.Join(dir, fileName)
 		newLoc := filepath.Join(dir, name, fileName[:strings.Index(fileName, "(")]+".java")
 
-		fmt.Printf("%d| ~%s | ~%s\n", i+1, fileName, name+"/"+fileName[:strings.Index(fileName, "(")]+".java")
+		fmt.Printf("%d| ~%s | ~%s\n", i+1, fileName, newLoc[len(dir):])
 
 		err = os.Rename(oldLoc, newLoc)
 		if err != nil {
