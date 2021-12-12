@@ -23,7 +23,7 @@ func main() {
 	}
 
 	// for i, fInfo := range files {
-	for i := len(files) - 1; i >= 0; i-- {
+	for i := 0; i < len(files); i++ {
 		fInfo := files[i]
 
 		fileName := fInfo.Name()
@@ -39,14 +39,14 @@ func main() {
 
 		err = os.Mkdir(name, 0755)
 		if err != nil {
-			fmt.Println("Duplicate from: " + name)
+			fmt.Println("Duplicate from: '" + name + "' ... Replacing")
 		}
 
 		// move directories
 		oldLoc := filepath.Join(dir, fileName)
 		newLoc := filepath.Join(dir, name, fileName[:strings.Index(fileName, "(")]+".java")
 
-		fmt.Printf("%d| %s | %s\n", i, oldLoc, newLoc)
+		fmt.Printf("%d| ~%s | ~%s\n", i+1, fileName, name+"/"+fileName[:strings.Index(fileName, "(")]+".java")
 
 		err = os.Rename(oldLoc, newLoc)
 		if err != nil {
