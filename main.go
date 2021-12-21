@@ -28,6 +28,11 @@ func main() {
 
 		fileName := fInfo.Name()
 
+		// check to make sure the file can be read
+		if !strings.Contains(fileName, ".java") && !strings.Contains(fileName, ".txt") {
+			continue
+		}
+
 		f, err := os.Open(fileName)
 		if err != nil {
 			log.Fatal(err)
