@@ -14,6 +14,10 @@ On mac:
 On windows:
 `icacls taSetup.exe /grant Users:m`
 
+If getting popup about unknown developer on mac:
+
+Open via file explorer GUI (right click open -> open anyway)
+
 ## Usage
 
 Run file in the directory with the loose programs
