@@ -4,6 +4,14 @@ Program to help with grading programs for Java
 
 The program automatically puts each file in a folder with the name of the student and renames the file to get rid of the "(#)" within the file name
 
+## Download
+
+Click on the latest release on the releases panel (should be on the right) and download the correct binary for your machine
+
+Windows: taSetup.exe
+Mac (with Intel): taSetup-macIntel
+Mac (with Apple Silicon): taSetup-m1
+
 ## Setup
 
 **If getting message about insufficient permissions run this command inside folder with the taSetup file:**
