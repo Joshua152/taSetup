@@ -38,7 +38,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		name := getName(f)
+		name := strings.Trim(getName(f), " ")
 
 		f.Close()
 
