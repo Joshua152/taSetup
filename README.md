@@ -8,9 +8,9 @@ The program automatically puts each file in a folder with the name of the studen
 
 Click on the latest release on the releases panel (should be on the right) and download the correct binary for your machine
 
-Windows: taSetup.exe
-Mac (with Intel): taSetup-macIntel
-Mac (with Apple Silicon): taSetup-m1
+**Windows:** taSetup.exe  
+**Mac (with Intel):** taSetup-macIntel  
+**Mac (with Apple Silicon):** taSetup-m1  
 
 ## Setup
 
