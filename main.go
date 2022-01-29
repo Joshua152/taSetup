@@ -4,10 +4,12 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/fs"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -22,23 +24,24 @@ func main() {
 		log.Fatal(err)
 	}
 
+	removeInvalidFiles(&files)
+
+	if len(files) > 0 {
+		fmt.Print("\n\n")
+	}
+
 	// for i, fInfo := range files {
 	for i := 0; i < len(files); i++ {
 		fInfo := files[i]
 
 		fileName := fInfo.Name()
 
-		// check to make sure the file can be read
-		if !strings.Contains(fileName, ".java") && !strings.Contains(fileName, ".txt") {
-			continue
-		}
-
 		f, err := os.Open(fileName)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		name := strings.Trim(getName(f), " ")
+		name := normalizeName(createValidName(getName(f)))
 
 		f.Close()
 
@@ -56,6 +59,19 @@ func main() {
 		err = os.Rename(oldLoc, newLoc)
 		if err != nil {
 			log.Fatal(err)
+		}
+	}
+
+	if len(files) > 0 {
+		fmt.Print("\n\n")
+	}
+}
+
+func removeInvalidFiles(files *[]fs.FileInfo) {
+	for i, f := range *files {
+		// check to make sure the file can be read
+		if !strings.Contains(f.Name(), ".java") && !strings.Contains(f.Name(), ".txt") {
+			*files = append((*files)[:i], (*files)[i+1:]...)
 		}
 	}
 }
@@ -78,4 +94,32 @@ func getName(f io.Reader) string {
 	}
 
 	return ""
+}
+
+func createValidName(s string) string {
+	re, err := regexp.Compile(`[<>:"/\|?*]`)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	s = re.ReplaceAllString(s, "")
+
+	s = strings.Trim(s, " .")
+
+	return s
+}
+
+func normalizeName(s string) string {
+	if strings.HasPrefix(strings.ToLower(s), "name ") {
+		s = s[5:]
+	}
+
+	re, err := regexp.Compile(` ?[pP]{1} ?\d`)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	s = re.ReplaceAllString(s, "")
+
+	return s
 }
